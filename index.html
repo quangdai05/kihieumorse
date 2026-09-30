@@ -34,8 +34,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 .app{position:relative;width:100vw;height:100vh;height:100dvh;background:#000;overflow:hidden}
 
-#webcam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:.85}
-#canvas{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1)}
+#webcam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:.85;pointer-events:none}
+#canvas{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none}
 
 /* ========== LOADING ========== */
 .loading{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;z-index:9999;transition:opacity .5s}
@@ -46,76 +46,77 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .loading-text strong{color:var(--accent);display:block;margin-bottom:8px;font-size:16px}
 
 /* ========== PANELS ========== */
-.panel{background:var(--panel);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border:1px solid var(--panel-border);border-radius:18px;padding:18px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.panel{background:var(--panel);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border:1px solid var(--panel-border);border-radius:18px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 
-.top-left{position:absolute;top:20px;left:20px;width:320px;z-index:10}
-.title{font-size:19px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
-.status-line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);margin-bottom:14px}
-.dot{width:7px;height:7px;border-radius:50%;background:#ff4444;transition:all .3s;flex-shrink:0}
-.dot.on{background:var(--green);box-shadow:0 0 10px rgba(0,255,136,.8)}
+.top-left{position:absolute;top:20px;left:20px;width:300px;z-index:10}
+.title{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.status-line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);margin-bottom:12px}
+.dot{width:7px;height:7px;border-radius:50%;background:#ff4444;transition:background .3s;flex-shrink:0}
+.dot.on{background:var(--green);box-shadow:0 0 8px rgba(0,255,136,.6)}
 
-.finger-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:10px;margin-bottom:5px;font-size:13px;transition:all .2s;border:1px solid transparent;will-change:transform}
-.finger-row.active{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.4);transform:translateX(3px)}
-.finger-name{display:flex;align-items:center;gap:10px;font-weight:600;color:#e8e8e8}
-.finger-action{color:var(--text-dimmer);font-weight:500;font-size:12px;transition:color .2s}
+.finger-row{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:9px;margin-bottom:4px;font-size:12px;transition:background .15s,transform .15s;border:1px solid transparent;will-change:transform}
+.finger-row.active{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.4);transform:translateX(2px)}
+.finger-name{display:flex;align-items:center;gap:9px;font-weight:600;color:#e8e8e8}
+.finger-action{color:var(--text-dimmer);font-weight:500;font-size:11px}
 .finger-row.active .finger-action{color:var(--accent)}
-.finger-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.finger-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-.fps{position:absolute;top:20px;right:20px;display:flex;align-items:center;gap:8px;padding:9px 16px;background:var(--panel);backdrop-filter:blur(24px);border:1px solid var(--panel-border);border-radius:12px;font-size:13px;font-weight:700;z-index:10}
+.fps{position:absolute;top:20px;right:20px;display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--panel-border);border-radius:12px;font-size:13px;font-weight:700;z-index:10}
 .fps .dot{width:8px;height:8px}
-.fps-num{color:var(--text);font-variant-numeric:tabular-nums;min-width:24px;text-align:right}
+.fps-num{color:var(--text);font-variant-numeric:tabular-nums;min-width:32px;text-align:right}
 .fps-label{color:var(--text-dimmer);font-weight:500;font-size:11px}
+.fps.good .dot{background:var(--green);box-shadow:0 0 8px rgba(0,255,136,.6)}
+.fps.mid .dot{background:var(--orange);box-shadow:0 0 8px rgba(255,170,0,.6)}
+.fps.low .dot{background:#ff4444;box-shadow:0 0 8px rgba(255,68,68,.6)}
 
 /* ========== MODE SWITCH ========== */
-.mode-switch{position:absolute;top:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:5px;background:var(--panel);backdrop-filter:blur(24px);border:1px solid var(--panel-border);border-radius:14px;z-index:20;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.mode-btn{padding:9px 18px;border-radius:10px;font-size:12px;font-weight:700;color:var(--text-dim);transition:all .25s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mode-switch{position:absolute;top:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:5px;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--panel-border);border-radius:14px;z-index:20;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.mode-btn{padding:9px 18px;border-radius:10px;font-size:12px;font-weight:700;color:var(--text-dim);transition:background .2s,color .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .mode-btn.active{background:linear-gradient(135deg,#00d4ff,#0088ff);color:#000;box-shadow:0 4px 16px rgba(0,212,255,.4)}
-.mode-btn:not(.active):hover{color:var(--text);background:rgba(255,255,255,.05)}
 
 /* ========== MORSE CHART ========== */
-.chart{position:absolute;top:80px;right:20px;width:340px;max-height:calc(100vh - 280px);overflow-y:auto;z-index:9;padding:20px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
+.chart{position:absolute;top:80px;right:20px;width:320px;max-height:calc(100vh - 280px);overflow-y:auto;z-index:9;padding:16px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 .chart::-webkit-scrollbar{width:4px}
 .chart::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
-.chart-title{font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:2px;margin-bottom:16px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.chart-title{font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
 .chart-title .badge{font-size:9px;padding:2px 8px;background:rgba(0,212,255,.15);color:var(--accent);border-radius:10px;letter-spacing:.5px}
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
-.chart-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:13px;transition:all .25s;border:1px solid transparent}
-.chart-item:hover{background:rgba(255,255,255,.04)}
-.chart-item.active{background:rgba(0,212,255,.18);color:var(--accent);border-color:rgba(0,212,255,.4);transform:scale(1.03)}
-.chart-item .char{font-weight:700;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;min-width:16px}
-.chart-item .code{color:var(--text-dim);letter-spacing:1.5px;font-size:12px}
+.chart-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 9px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:12px;transition:background .2s,border-color .2s;border:1px solid transparent}
+.chart-item.active{background:rgba(0,212,255,.18);color:var(--accent);border-color:rgba(0,212,255,.4)}
+.chart-item .char{font-weight:700;color:var(--text);font-family:'Inter',sans-serif;font-size:12px;min-width:14px}
+.chart-item .code{color:var(--text-dim);letter-spacing:1.5px;font-size:11px}
 .chart-item.active .code{color:var(--accent)}
 
 /* ========== BOTTOM ========== */
 .bottom{position:absolute;bottom:20px;left:20px;right:20px;z-index:10}
-.bottom-inner{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.section-label{font-size:10px;font-weight:700;color:var(--text-dimmer);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
-.current-hint{font-size:13px;color:var(--text-dim);margin-bottom:12px;min-height:18px;transition:color .3s}
+.bottom-inner{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.section-label{font-size:10px;font-weight:700;color:var(--text-dimmer);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.current-hint{font-size:13px;color:var(--text-dim);margin-bottom:10px;min-height:18px}
 .message{font-size:26px;font-weight:700;color:var(--text);line-height:1.3;word-break:break-word;min-height:34px;display:flex;align-items:center;flex-wrap:wrap}
-.message:empty::before{content:'Bắt đầu bằng cách chạm ngón cái vào ngón tay';color:#3a3a3a;font-weight:400;font-size:14px}
+.message:empty::before{content:'Chạm ngón cái vào ngón tay';color:#3a3a3a;font-weight:400;font-size:14px}
 .cursor{display:inline-block;width:2px;height:22px;background:var(--accent);margin-left:3px;animation:blink 1s infinite;vertical-align:middle}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 .right-side{text-align:right}
-.char-count{font-size:11px;color:var(--text-dimmer);font-weight:500;margin-bottom:8px}
+.char-count{font-size:11px;color:var(--text-dimmer);font-weight:500;margin-bottom:6px}
 .current-morse{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent);letter-spacing:4px;min-height:28px;min-width:100px;display:flex;justify-content:flex-end;align-items:center}
 .current-morse:empty::before{content:'·';color:#333;letter-spacing:0}
 
 /* ========== POPUP ========== */
-.popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:72px;font-weight:800;text-shadow:0 0 40px currentColor,0 0 80px currentColor;opacity:0;transition:opacity .15s;pointer-events:none;letter-spacing:2px;text-transform:lowercase;z-index:100;will-change:transform,opacity}
-.popup.show{opacity:1;animation:pop .55s cubic-bezier(.34,1.56,.64,1)}
+.popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:72px;font-weight:800;text-shadow:0 0 40px currentColor,0 0 80px currentColor;opacity:0;pointer-events:none;letter-spacing:2px;text-transform:lowercase;z-index:100;will-change:transform,opacity}
+.popup.show{opacity:1;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pop{0%{transform:translate(-50%,-50%) scale(.7)}50%{transform:translate(-50%,-50%) scale(1.15)}100%{transform:translate(-50%,-50%) scale(1)}}
 
 /* ========== TOOLBAR ========== */
 .toolbar{position:absolute;top:80px;left:20px;display:flex;flex-direction:column;gap:8px;z-index:10}
-.btn{background:var(--panel);backdrop-filter:blur(24px);border:1px solid var(--panel-border);color:var(--text);padding:11px 16px;border-radius:12px;font-size:12px;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:8px;min-height:42px}
+.btn{background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--panel-border);color:var(--text);padding:10px 15px;border-radius:12px;font-size:12px;font-weight:600;transition:border-color .2s,background .2s,transform .1s;display:flex;align-items:center;gap:8px;min-height:40px}
 .btn:hover{border-color:rgba(0,212,255,.5);background:rgba(0,212,255,.08)}
 .btn:active{transform:scale(.94)}
 .btn-danger:hover{border-color:rgba(255,68,68,.5);background:rgba(255,68,68,.08);color:#ff8080}
 
-/* ========== SHAPE MODE ========== */
+/* ========== SHAPE INFO ========== */
 .shape-info{position:absolute;top:80px;right:20px;width:280px;z-index:9}
-.shape-info .panel{padding:16px 18px}
+.shape-info .panel{padding:16px}
 .shape-shape-name{font-size:22px;font-weight:800;color:var(--accent);margin-bottom:4px;letter-spacing:-.5px}
 .shape-vertex{font-size:12px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:12px}
 .shape-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
@@ -123,70 +124,59 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .shape-stat .lbl{font-size:9px;color:var(--text-dimmer);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
 .shape-stat .val{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text)}
 .shape-hint{font-size:11px;color:var(--text-dimmer);line-height:1.5}
-
-.shape-list{max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-top:10px}
-.shape-list::-webkit-scrollbar{width:3px}
-.shape-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-.shape-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:rgba(255,255,255,.03);border-radius:8px;font-size:12px;transition:all .2s;border:1px solid transparent;cursor:pointer}
+.shape-list{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-top:10px}
+.shape-item{display:flex;align-items:center;justify-content:space-between;padding:6px 9px;background:rgba(255,255,255,.03);border-radius:8px;font-size:12px;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s}
 .shape-item:hover{background:rgba(255,255,255,.06)}
-.shape-item .name{font-weight:700;color:var(--text)}
+.shape-item .name{font-weight:700;color:var(--text);font-size:12px}
 .shape-item .meta{font-size:10px;color:var(--text-dimmer);font-family:'JetBrains Mono',monospace}
 .shape-item.selected{border-color:var(--accent);background:rgba(0,212,255,.1)}
 
 /* ========== TOAST ========== */
-.toast{position:fixed;bottom:140px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,212,255,.95);color:#000;padding:12px 24px;border-radius:12px;font-weight:700;font-size:13px;opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:1000;box-shadow:0 8px 32px rgba(0,212,255,.4);max-width:90%;text-align:center}
+.toast{position:fixed;bottom:140px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,212,255,.95);color:#000;padding:12px 24px;border-radius:12px;font-weight:700;font-size:13px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:1000;max-width:90%;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.error{background:rgba(255,68,68,.95);color:#fff;box-shadow:0 8px 32px rgba(255,68,68,.4)}
+.toast.error{background:rgba(255,68,68,.95);color:#fff}
 
 /* ========== MODE HIDE ========== */
-.mode-hand .mode-shape-ui{display:none}
-.mode-shape .mode-hand-ui{display:none}
+.mode-hand .mode-shape-ui{display:none !important}
+.mode-shape .mode-hand-ui{display:none !important}
 
 /* ========== MOBILE ========== */
 @media (max-width:820px){
-    .top-left{top:10px;left:10px;width:auto;max-width:58%;padding:12px 14px;border-radius:14px}
-    .title{font-size:15px;margin-bottom:6px}
-    .status-line{font-size:10px;margin-bottom:10px}
-    .finger-row{padding:6px 8px;font-size:11px;margin-bottom:3px}
-    .finger-name{gap:7px}
-    .finger-action{font-size:10px}
-    .finger-dot{width:7px;height:7px}
-
-    .fps{top:10px;right:10px;padding:7px 12px;font-size:11px;border-radius:10px}
+    .top-left{top:10px;left:10px;width:auto;max-width:55%;padding:10px 12px;border-radius:12px}
+    .title{font-size:14px;margin-bottom:5px}
+    .status-line{font-size:10px;margin-bottom:8px}
+    .finger-row{padding:5px 7px;font-size:10px;margin-bottom:3px}
+    .finger-name{gap:6px}
+    .finger-action{font-size:9px}
+    .finger-dot{width:6px;height:6px}
+    .fps{top:10px;right:10px;padding:6px 10px;font-size:11px;border-radius:10px}
     .fps-label{display:none}
-
-    .mode-switch{top:auto;bottom:130px;left:50%;transform:translateX(-50%);padding:4px}
+    .fps-num{min-width:24px}
+    .mode-switch{top:auto;bottom:120px;left:50%;transform:translateX(-50%);padding:4px}
     .mode-btn{padding:7px 12px;font-size:11px}
-    .mode-btn span.long{display:none}
-
-    .toolbar{top:60px;left:10px;flex-direction:row;gap:6px}
-    .btn{padding:8px 12px;font-size:11px;min-height:36px;border-radius:10px}
+    .toolbar{top:55px;left:10px;flex-direction:row;gap:5px}
+    .btn{padding:7px 10px;font-size:10px;min-height:34px;border-radius:9px}
     .btn span{display:none}
-
     .chart{display:none}
     .shape-info{display:none}
-
     .bottom{bottom:10px;left:10px;right:10px}
-    .bottom-inner{grid-template-columns:1fr auto;gap:12px;padding:14px 16px}
-    .section-label{font-size:9px;margin-bottom:5px}
-    .current-hint{font-size:11px;margin-bottom:8px}
+    .bottom-inner{grid-template-columns:1fr auto;gap:10px;padding:12px 14px}
+    .section-label{font-size:9px;margin-bottom:4px}
+    .current-hint{font-size:11px;margin-bottom:6px}
     .message{font-size:20px;min-height:26px}
     .message:empty::before{font-size:12px}
-    .char-count{font-size:9px;margin-bottom:4px}
+    .char-count{font-size:9px;margin-bottom:3px}
     .current-morse{font-size:16px;min-width:0;letter-spacing:3px}
     .popup{font-size:48px}
 }
 
 @media (max-width:820px) and (orientation:landscape){
-    .chart{display:block;width:220px;top:60px;right:10px;max-height:55vh;padding:14px}
-    .chart-title{font-size:9px;margin-bottom:10px}
-    .chart-item{padding:5px 7px;font-size:11px}
-    .bottom-inner{grid-template-columns:1fr auto;gap:14px}
-    .bottom{right:250px}
-    .top-left{max-width:40%}
+    .chart{display:block;width:200px;top:55px;right:10px;max-height:50vh;padding:12px}
+    .shape-info{display:block;top:55px;right:10px;width:180px}
+    .bottom{right:220px}
+    .top-left{max-width:35%}
     .toolbar{top:10px;right:10px;left:auto;flex-direction:row}
-    .shape-info{display:block;top:60px;right:10px;width:200px}
-    .mode-switch{top:10px;bottom:auto;left:50%}
+    .mode-switch{top:10px;bottom:auto}
 }
 
 @media (min-width:821px){
@@ -211,15 +201,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
     <!-- Mode Switch -->
     <div class="mode-switch">
-        <button class="mode-btn active" id="btnModeHand" data-mode="hand">
-            ✋ <span>Morse</span>
-        </button>
-        <button class="mode-btn" id="btnModeShape" data-mode="shape">
-            🎨 <span class="long">Hình dạng</span>
-        </button>
+        <button class="mode-btn active" id="btnModeHand">✋ <span>Morse</span></button>
+        <button class="mode-btn" id="btnModeShape">🎨 <span>Hình dạng</span></button>
     </div>
 
-    <!-- Top Left (Hand Mode) -->
+    <!-- Top Left Hand Mode -->
     <div class="panel top-left mode-hand-ui">
         <div class="title">Bàn Tay Morse</div>
         <div class="status-line">
@@ -244,20 +230,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
         </div>
     </div>
 
-    <!-- Top Left (Shape Mode) -->
+    <!-- Top Left Shape Mode -->
     <div class="panel top-left mode-shape-ui">
-        <div class="title">Vẽ Hình</div>
+        <div class="title">Vẽ Hình 2 Tay</div>
         <div class="status-line">
             <div class="dot" id="shapeStatusDot"></div>
-            <span id="shapeStatusText">Chờ 3+ ngón chụm lại</span>
+            <span id="shapeStatusText">Chờ 2 bàn tay</span>
         </div>
-        <div class="finger-row" data-shape="pinch">
-            <div class="finger-name"><div class="finger-dot" style="background:var(--pink)"></div> 3+ ngón chụm</div>
-            <div class="finger-action">vẽ đỉnh</div>
+        <div class="finger-row" data-shape="two">
+            <div class="finger-name"><div class="finger-dot" style="background:var(--pink)"></div> 2 bàn tay</div>
+            <div class="finger-action">tạo đường nối</div>
         </div>
         <div class="finger-row" data-shape="move">
             <div class="finger-name"><div class="finger-dot" style="background:var(--cyan)"></div> Di chuyển</div>
-            <div class="finger-action">tạo hình</div>
+            <div class="finger-action">vẽ hình dạng</div>
         </div>
         <div class="finger-row" data-shape="release">
             <div class="finger-name"><div class="finger-dot" style="background:var(--orange)"></div> Nhấc tay</div>
@@ -266,7 +252,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     </div>
 
     <!-- FPS -->
-    <div class="fps">
+    <div class="fps" id="fpsBox">
         <div class="dot on"></div>
         <span class="fps-num" id="fpsNum">0</span>
         <span class="fps-label">FPS</span>
@@ -281,23 +267,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
         <div class="chart-grid" id="chartGrid"></div>
     </div>
 
-    <!-- Shape Info Panel -->
+    <!-- Shape Info -->
     <div class="shape-info mode-shape-ui">
         <div class="panel">
             <div class="section-label">Hình hiện tại</div>
             <div class="shape-shape-name" id="shapeName">—</div>
-            <div class="shape-vertex" id="shapeVertex">0 đỉnh · 0 cạnh</div>
+            <div class="shape-vertex" id="shapeVertex">0 điểm</div>
             <div class="shape-stats">
                 <div class="shape-stat">
                     <div class="lbl">Số hình</div>
                     <div class="val" id="shapeCount">0</div>
                 </div>
                 <div class="shape-stat">
-                    <div class="lbl">Chu vi</div>
+                    <div class="lbl">Độ dài</div>
                     <div class="val" id="shapePerimeter">0</div>
                 </div>
             </div>
-            <div class="shape-hint">Chụm 3+ ngón tay để tạo đỉnh • Di chuyển để vẽ hình • Nhấc tay để lưu</div>
+            <div class="shape-hint">Đưa 2 tay vào khung hình • Di chuyển để vẽ • Nhấc tay để lưu</div>
             <div class="shape-list" id="shapeList"></div>
         </div>
     </div>
@@ -312,9 +298,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
         <button class="btn mode-shape-ui" id="btnExport">💾 <span>Xuất</span></button>
     </div>
 
-    <!-- Bottom Panel -->
+    <!-- Bottom -->
     <div class="bottom">
-        <!-- Hand Mode Output -->
         <div class="panel bottom-inner mode-hand-ui">
             <div>
                 <div class="section-label">Ký tự hiện tại</div>
@@ -331,18 +316,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
             </div>
         </div>
 
-        <!-- Shape Mode Output -->
         <div class="panel bottom-inner mode-shape-ui">
             <div>
                 <div class="section-label">Đang vẽ</div>
-                <div class="current-hint" id="shapeHint">Chụm 3+ ngón tay lại để bắt đầu</div>
+                <div class="current-hint" id="shapeHint">Đưa 2 bàn tay vào khung hình</div>
                 <div class="section-label">Hình đã lưu</div>
                 <div class="message" id="shapeMessageWrap">
                     <span id="shapeMessage"></span>
                 </div>
             </div>
             <div class="right-side">
-                <div class="char-count" id="shapeVertexCount">0 đỉnh</div>
+                <div class="char-count" id="shapeVertexCount">0 điểm</div>
                 <div class="section-label" style="text-align:right">Loại</div>
                 <div class="current-morse" id="shapeType" style="font-size:16px;letter-spacing:2px">—</div>
             </div>
@@ -375,19 +359,25 @@ const REVERSE = Object.freeze(Object.fromEntries(
 // CONFIG
 // ============================================
 const CONFIG = {
-    cooldown: 500,
-    releaseTime: 100,
+    // Hand mode
+    cooldown: 450,
+    releaseTime: 80,
     touchRatio: 0.35,
-    holdDeleteDuration: 1500,
-    popupDuration: 550,
-    hintResetDelay: 1600,
+    holdDeleteDuration: 1400,
     // Shape mode
-    pinchRatio: 0.30,       // 3 ngón chụm nếu khoảng cách tới tâm < 30% bàn tay
-    minFingersForPinch: 3,
-    shapeSampleDistance: 0.008,  // khoảng cách tối thiểu giữa 2 điểm vẽ (theo hệ normalized)
-    maxVertices: 200,
-    minVerticesToSave: 4,   // tối thiểu 4 đỉnh để lưu hình
-    closeRatio: 0.15        // nếu điểm cuối gần điểm đầu < 15% thì tự đóng
+    shapeSampleDistance: 0.012,
+    maxVertices: 500,
+    minVerticesToSave: 3,
+    closeRatio: 0.18,
+    // Rendering
+    glowCacheSize: 64,
+    // Performance
+    mediapipeInputWidth: 640,
+    mediapipeInputHeight: 480,
+    targetFPS: 100,
+    modelComplexity: 1,
+    minDetectionConfidence: 0.65,
+    minTrackingConfidence: 0.55
 };
 
 const FINGERS = {
@@ -409,7 +399,6 @@ const DOM = {
     app: $('app'),
     video: $('webcam'),
     canvas: $('canvas'),
-    // Hand
     message: $('message'),
     currentMorse: $('currentMorse'),
     currentHint: $('currentHint'),
@@ -417,9 +406,6 @@ const DOM = {
     chartGrid: $('chartGrid'),
     statusDot: $('statusDot'),
     statusText: $('statusText'),
-    btnShare: $('btnShare'),
-    btnClear: $('btnClear'),
-    // Shape
     shapeName: $('shapeName'),
     shapeVertex: $('shapeVertex'),
     shapeCount: $('shapeCount'),
@@ -431,15 +417,17 @@ const DOM = {
     shapeType: $('shapeType'),
     shapeStatusDot: $('shapeStatusDot'),
     shapeStatusText: $('shapeStatusText'),
-    btnUndo: $('btnUndo'),
-    btnClearShape: $('btnClearShape'),
-    btnExport: $('btnExport'),
-    // Common
     popup: $('popup'),
     loading: $('loading'),
     loadingText: $('loadingText'),
     toast: $('toast'),
     fpsNum: $('fpsNum'),
+    fpsBox: $('fpsBox'),
+    btnShare: $('btnShare'),
+    btnClear: $('btnClear'),
+    btnUndo: $('btnUndo'),
+    btnClearShape: $('btnClearShape'),
+    btnExport: $('btnExport'),
     btnModeHand: $('btnModeHand'),
     btnModeShape: $('btnModeShape')
 };
@@ -454,9 +442,8 @@ Object.keys(FINGERS).forEach(key => {
 // STATE
 // ============================================
 const state = {
-    mode: 'hand',  // 'hand' | 'shape'
-
-    // Hand mode
+    mode: 'hand',
+    // Hand
     message: '',
     currentMorse: '',
     lastActionTime: 0,
@@ -464,24 +451,26 @@ const state = {
     isTouching: false,
     activeFinger: null,
     holdTimer: null,
-
-    // Shape mode
-    vertices: [],            // các điểm đang vẽ (normalized 0-1)
-    isPinching: false,       // đang chụm 3+ ngón
-    wasPinching: false,
-    shapes: [],              // các hình đã lưu
+    // Shape
+    vertices: [],       // đường vẽ (midpoint giữa 2 tay)
+    wasActive: false,
+    shapes: [],
     selectedShapeIndex: -1,
-    lastShapeDrawn: null,
-
     // Common
     popupTimer: null,
     toastTimer: null,
     hintTimer: null,
     cameraReady: false,
     frameCount: 0,
+    fpsAccum: 0,
     lastFpsUpdate: performance.now(),
-    showTempPopup: null,     // popup tạm cho shape mode
-    tempPopupTimer: null
+    // Perf caches
+    canvasW: 0,
+    canvasH: 0,
+    glowCache: new Map(),
+    lastVideoW: 0,
+    lastVideoH: 0,
+    shapeLayerDirty: true
 };
 
 // ============================================
@@ -489,7 +478,7 @@ const state = {
 // ============================================
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
-function showToast(text, isError = false, duration = 2500) {
+function showToast(text, isError = false, duration = 2000) {
     DOM.toast.textContent = text;
     DOM.toast.classList.toggle('error', isError);
     DOM.toast.classList.add('show');
@@ -497,7 +486,7 @@ function showToast(text, isError = false, duration = 2500) {
     state.toastTimer = setTimeout(() => DOM.toast.classList.remove('show'), duration);
 }
 
-function showPopup(text, color, duration = CONFIG.popupDuration) {
+function showPopup(text, color, duration = 500) {
     DOM.popup.textContent = text;
     DOM.popup.style.color = color;
     DOM.popup.style.textShadow = `0 0 40px ${color}, 0 0 80px ${color}80`;
@@ -508,6 +497,77 @@ function showPopup(text, color, duration = CONFIG.popupDuration) {
     state.popupTimer = setTimeout(() => DOM.popup.classList.remove('show'), duration);
 }
 
+// ============================================
+// GLOW SPRITE CACHE - Render 1 lần, blit nhiều lần
+// ============================================
+function getGlowSprite(color, isTouching) {
+    const key = color + '|' + (isTouching ? '1' : '0');
+    if (state.glowCache.has(key)) return state.glowCache.get(key);
+
+    const size = CONFIG.glowCacheSize;
+    const radius = isTouching ? size : size * 0.6;
+    const off = document.createElement('canvas');
+    off.width = size * 2;
+    off.height = size * 2;
+    const octx = off.getContext('2d');
+
+    const cx = size;
+    const cy = size;
+
+    // Glow gradient
+    const grad = octx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+    const alpha = isTouching ? 0.95 : 0.4;
+    const midAlpha = isTouching ? 0.4 : 0.15;
+    grad.addColorStop(0, color + Math.round(alpha * 255).toString(16).padStart(2, '0'));
+    grad.addColorStop(0.4, color + Math.round(midAlpha * 255).toString(16).padStart(2, '0'));
+    grad.addColorStop(1, color + '00');
+    octx.fillStyle = grad;
+    octx.beginPath();
+    octx.arc(cx, cy, radius, 0, Math.PI * 2);
+    octx.fill();
+
+    // Core
+    const coreR = isTouching ? 9 : 6;
+    octx.beginPath();
+    octx.arc(cx, cy, coreR, 0, Math.PI * 2);
+    octx.fillStyle = color;
+    octx.fill();
+
+    if (isTouching) {
+        octx.beginPath();
+        octx.arc(cx, cy, 4, 0, Math.PI * 2);
+        octx.fillStyle = '#fff';
+        octx.fill();
+    }
+
+    state.glowCache.set(key, off);
+    return off;
+}
+
+function drawGlowSprite(x, y, color, isTouching) {
+    const sprite = getGlowSprite(color, isTouching);
+    const size = CONFIG.glowCacheSize;
+    ctx.drawImage(sprite, x - size, y - size, size * 2, size * 2);
+}
+
+// ============================================
+// CHART BUILD
+// ============================================
+(function buildChart() {
+    const frag = document.createDocumentFragment();
+    for (const [char, code] of Object.entries(MORSE)) {
+        const div = document.createElement('div');
+        div.className = 'chart-item';
+        div.dataset.char = char;
+        div.innerHTML = `<span class="char">${char}</span><span class="code">${code}</span>`;
+        frag.appendChild(div);
+    }
+    DOM.chartGrid.appendChild(frag);
+})();
+
+// ============================================
+// UI UPDATE - Không chạy mỗi frame, chỉ khi cần
+// ============================================
 let uiScheduled = false;
 function scheduleUIUpdate() {
     if (uiScheduled) return;
@@ -536,31 +596,15 @@ function highlightChart(char) {
     const el = DOM.chartGrid.querySelector(`[data-char="${char}"]`);
     if (el) {
         el.classList.add('active');
-        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        setTimeout(() => el.classList.remove('active'), 1200);
+        setTimeout(() => el.classList.remove('active'), 1000);
     }
 }
 
 // ============================================
-// CHART BUILD
-// ============================================
-(function buildChart() {
-    const frag = document.createDocumentFragment();
-    for (const [char, code] of Object.entries(MORSE)) {
-        const div = document.createElement('div');
-        div.className = 'chart-item';
-        div.dataset.char = char;
-        div.innerHTML = `<span class="char">${char}</span><span class="code">${code}</span>`;
-        frag.appendChild(div);
-    }
-    DOM.chartGrid.appendChild(frag);
-})();
-
-// ============================================
-// HAND MODE - ACTION
+// HAND MODE
 // ============================================
 function handleHandAction(action) {
-    if (navigator.vibrate) navigator.vibrate(25);
+    if (navigator.vibrate) navigator.vibrate(20);
 
     switch (action) {
         case ACTIONS.DOT:
@@ -581,7 +625,7 @@ function handleHandAction(action) {
                 clearTimeout(state.hintTimer);
                 state.hintTimer = setTimeout(() => {
                     DOM.currentHint.textContent = 'Chạm ngón cái vào một ngón tay để bắt đầu ký tự';
-                }, CONFIG.hintResetDelay);
+                }, 1500);
             }
             state.currentMorse = '';
             break;
@@ -596,28 +640,22 @@ function handleHandAction(action) {
 }
 
 // ============================================
-// SHAPE MODE - LOGIC
+// SHAPE MODE - LOGIC 2 TAY
 // ============================================
 function updateShapeUI() {
-    // Current drawing stats
     const v = state.vertices;
-    DOM.shapeVertex.textContent = `${v.length} đỉnh · ${Math.max(0, v.length-1)} cạnh`;
-    DOM.shapeVertexCount.textContent = `${v.length} đỉnh`;
+    DOM.shapeVertex.textContent = `${v.length} điểm`;
+    DOM.shapeVertexCount.textContent = `${v.length} điểm`;
 
-    // Perimeter
     let perim = 0;
     for (let i = 1; i < v.length; i++) perim += dist(v[i-1], v[i]);
-    DOM.shapePerimeter.textContent = perim < 1000 ? Math.round(perim*100) : '···';
+    DOM.shapePerimeter.textContent = perim < 1000 ? Math.round(perim * 100) : '···';
 
-    // Shape classification
     const type = classifyShape(v);
     DOM.shapeType.textContent = type.name;
-    DOM.shapeName.textContent = state.wasPinching ? type.name : '—';
-
-    // Saved shapes count
+    DOM.shapeName.textContent = state.wasActive ? type.name : '—';
     DOM.shapeCount.textContent = state.shapes.length;
 
-    // Saved list
     if (state.shapes.length === 0) {
         DOM.shapeMessage.innerHTML = '<span style="color:#3a3a3a;font-weight:400;font-size:14px">Chưa có hình nào</span>';
     } else {
@@ -638,7 +676,7 @@ function renderShapeList() {
         const selected = i === state.selectedShapeIndex ? ' selected' : '';
         html += `<div class="shape-item${selected}" data-idx="${i}">
             <span class="name">${s.type.name}</span>
-            <span class="meta">${s.vertices.length}đ · ${Math.round(s.perimeter)}</span>
+            <span class="meta">${s.vertices.length}đ · ${Math.round(s.perimeter * 100)}</span>
         </div>`;
     });
     DOM.shapeList.innerHTML = html;
@@ -646,42 +684,33 @@ function renderShapeList() {
     DOM.shapeList.querySelectorAll('.shape-item').forEach(el => {
         el.addEventListener('click', () => {
             state.selectedShapeIndex = +el.dataset.idx;
+            state.shapeLayerDirty = true;
             renderShapeList();
             updateShapeUI();
         });
     });
 }
 
-/**
- * Phân loại hình dựa trên số đỉnh và cấu trúc
- */
 function classifyShape(vertices) {
     const n = vertices.length;
     if (n < 2) return { name: '—', edges: 0 };
-
-    // Kiểm tra đường thẳng
     if (n === 2) return { name: 'Đoạn thẳng', edges: 1 };
 
-    // Đếm số cạnh (đỉnh chuyển hướng đột ngột)
-    const angles = [];
+    // Đếm góc
+    let corners = 0;
+    let inCorner = false;
     for (let i = 1; i < n - 1; i++) {
         const a = vertices[i-1], b = vertices[i], c = vertices[i+1];
         const ang = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
-        angles.push(Math.abs(ang));
-    }
-    // Đếm số đỉnh "góc" (angle > 45 độ)
-    let corners = 0;
-    let inCorner = false;
-    for (const a of angles) {
-        if (a > Math.PI / 4) {
+        const absAng = Math.abs(ang > Math.PI ? ang - 2*Math.PI : (ang < -Math.PI ? ang + 2*Math.PI : ang));
+        if (absAng > Math.PI / 4) {
             if (!inCorner) { corners++; inCorner = true; }
         } else {
             inCorner = false;
         }
     }
 
-    // Nếu hình gần khép kín
-    const closed = n > 3 && dist(vertices[0], vertices[n-1]) < 0.12;
+    const closed = n > 3 && dist(vertices[0], vertices[n-1]) < CONFIG.closeRatio;
 
     if (closed) {
         switch (corners) {
@@ -694,21 +723,21 @@ function classifyShape(vertices) {
         }
     }
 
-    // Đường gấp khúc
     if (corners === 0) {
-        // Kiểm tra có cong không
+        // Kiểm tra độ cong
         let maxDev = 0;
+        const a = vertices[0], b = vertices[n-1];
+        const len = Math.hypot(b.x-a.x, b.y-a.y) || 1;
         for (let i = 1; i < n - 1; i++) {
-            const a = vertices[0], b = vertices[n-1], p = vertices[i];
-            const dev = Math.abs((b.x-a.x)*(a.y-p.y) - (a.x-p.x)*(b.y-a.y)) /
-                        (Math.hypot(b.x-a.x, b.y-a.y) || 1);
-            maxDev = Math.max(maxDev, dev);
+            const p = vertices[i];
+            const dev = Math.abs((b.x-a.x)*(a.y-p.y) - (a.x-p.x)*(b.y-a.y)) / len;
+            if (dev > maxDev) maxDev = dev;
         }
         if (maxDev > 0.05) return { name: 'Đường cong', edges: 0 };
         return { name: 'Đường thẳng', edges: 1 };
     }
 
-    return { name: `Gấp khúc ${corners} góc`, edges: corners };
+    return { name: `Gấp khúc ${corners}`, edges: corners };
 }
 
 function saveCurrentShape() {
@@ -719,18 +748,16 @@ function saveCurrentShape() {
     for (let i = 1; i < v.length; i++) perimeter += dist(v[i-1], v[i]);
     const type = classifyShape(v);
 
-    const shape = {
+    state.shapes.push({
         vertices: v.slice(),
         type,
         perimeter,
         timestamp: Date.now()
-    };
-    state.shapes.push(shape);
-    state.lastShapeDrawn = shape;
+    });
+    state.shapeLayerDirty = true;
 
     if (navigator.vibrate) navigator.vibrate([50, 30, 80]);
-    showPopup(type.name, '#00d4ff', 800);
-
+    showPopup(type.name, '#00d4ff', 700);
     return true;
 }
 
@@ -738,6 +765,7 @@ function undoShape() {
     if (state.shapes.length > 0) {
         state.shapes.pop();
         state.selectedShapeIndex = -1;
+        state.shapeLayerDirty = true;
         updateShapeUI();
         showToast('Đã hoàn tác');
     } else {
@@ -754,6 +782,7 @@ function clearAllShapes() {
         state.shapes = [];
         state.vertices = [];
         state.selectedShapeIndex = -1;
+        state.shapeLayerDirty = true;
         updateShapeUI();
         showToast('Đã xóa hết');
     }
@@ -764,8 +793,6 @@ function exportShapes() {
         showToast('Chưa có hình nào', true);
         return;
     }
-
-    // Vẽ tất cả hình ra canvas phụ
     const W = 800, H = 800;
     const off = document.createElement('canvas');
     off.width = W; off.height = H;
@@ -788,15 +815,10 @@ function exportShapes() {
             if (j === 0) octx.moveTo(x, y);
             else octx.lineTo(x, y);
         });
-        if (s.vertices.length > 3 && dist(s.vertices[0], s.vertices[s.vertices.length-1]) < 0.12) {
+        if (s.vertices.length > 3 && dist(s.vertices[0], s.vertices[s.vertices.length-1]) < CONFIG.closeRatio) {
             octx.closePath();
         }
         octx.stroke();
-
-        // Label
-        octx.fillStyle = color;
-        octx.font = 'bold 16px system-ui';
-        octx.fillText(`${i+1}. ${s.type.name}`, 20, 30 + i * 22);
     });
 
     off.toBlob(blob => {
@@ -811,72 +833,17 @@ function exportShapes() {
 }
 
 // ============================================
-// DRAW HELPERS
-// ============================================
-function drawFingerGlow(x, y, color, isTouching) {
-    const radius = isTouching ? 45 : 28;
-    const grad = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    const alpha = isTouching ? 'ee' : '66';
-    const midAlpha = isTouching ? '66' : '22';
-    grad.addColorStop(0, color + alpha);
-    grad.addColorStop(0.4, color + midAlpha);
-    grad.addColorStop(1, color + '00');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    const coreR = isTouching ? 9 : 6;
-    ctx.beginPath();
-    ctx.arc(x, y, coreR, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
-
-    if (isTouching) {
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.fill();
-    }
-}
-
-function drawThumbGlow(x, y, isTouching) {
-    const radius = isTouching ? 35 : 18;
-    const grad = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    grad.addColorStop(0, `rgba(255,255,255,${isTouching ? 0.5 : 0.2})`);
-    grad.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-function drawPinchGlow(x, y, r, color) {
-    const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-    grad.addColorStop(0, color + 'ee');
-    grad.addColorStop(0.4, color + '66');
-    grad.addColorStop(1, color + '00');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-// ============================================
 // HAND MODE PROCESS
 // ============================================
 function processHandMode(lm, W, H) {
     const thumb = lm[THUMB_TIP];
-    const wrist = lm[WRIST];
-    const handSize = dist(wrist, lm[MIDDLE_MCP]);
+    const handSize = dist(lm[WRIST], lm[MIDDLE_MCP]);
     const threshold = handSize * CONFIG.touchRatio;
 
-    let action = null;
-    let activeFinger = null;
     let touchingFinger = null;
-
     let minDist = Infinity;
     let bestFinger = null;
+
     for (const [key, finger] of Object.entries(FINGERS)) {
         const d = dist(thumb, lm[finger.tip]);
         if (d < threshold && d < minDist) {
@@ -886,22 +853,14 @@ function processHandMode(lm, W, H) {
     }
     if (bestFinger) {
         touchingFinger = bestFinger.key;
-        action = bestFinger.action;
-        activeFinger = bestFinger.key;
     }
 
-    // Draw all fingertip glows
+    // Vẽ glows
     for (const [key, finger] of Object.entries(FINGERS)) {
         const tipLm = lm[finger.tip];
-        const x = tipLm.x * W;
-        const y = tipLm.y * H;
-        const isTouching = (touchingFinger === key);
-        drawFingerGlow(x, y, finger.color, isTouching);
+        drawGlowSprite(tipLm.x * W, tipLm.y * H, finger.color, touchingFinger === key);
     }
-
-    const tx = thumb.x * W;
-    const ty = thumb.y * H;
-    drawThumbGlow(tx, ty, touchingFinger !== null);
+    drawGlowSprite(thumb.x * W, thumb.y * H, '#ffffff', touchingFinger !== null);
 
     // State machine
     const isNowTouching = touchingFinger !== null;
@@ -910,12 +869,12 @@ function processHandMode(lm, W, H) {
     if (isNowTouching && !state.isTouching) {
         if (nowMs - state.lastReleaseTime > CONFIG.releaseTime &&
             nowMs - state.lastActionTime > CONFIG.cooldown) {
-            if (action) {
-                handleHandAction(action);
+            if (bestFinger) {
+                handleHandAction(bestFinger.action);
                 state.lastActionTime = nowMs;
             }
         }
-        if (action === ACTIONS.DELETE && !state.holdTimer) {
+        if (bestFinger?.action === ACTIONS.DELETE && !state.holdTimer) {
             state.holdTimer = setTimeout(() => {
                 if (state.message) {
                     state.message = '';
@@ -938,149 +897,106 @@ function processHandMode(lm, W, H) {
 
     DOM.statusDot.classList.add('on');
     DOM.statusText.textContent = 'Đã nhận diện tay';
-    highlightRow(activeFinger);
+    highlightRow(touchingFinger);
 }
 
 // ============================================
-// SHAPE MODE PROCESS
+// SHAPE MODE PROCESS - 2 BÀN TAY
 // ============================================
-function processShapeMode(lm, W, H) {
-    const wrist = lm[WRIST];
-    const handSize = dist(wrist, lm[MIDDLE_MCP]);
+function processShapeMode(hands, W, H) {
+    // hands là mảng landmark của mỗi bàn tay
+    // Lấy điểm trung tâm lòng bàn tay của mỗi tay = landmark 9 (MIDDLE_MCP)
+    const points = hands.map(lm => ({
+        x: lm[MIDDLE_MCP].x,
+        y: lm[MIDDLE_MCP].y
+    }));
 
-    // Ngón cái đến các ngón
-    const thumb = lm[THUMB_TIP];
-    const fingerTips = [
-        { key: 'index',  lm: lm[8],  color: '#00ffff' },
-        { key: 'middle', lm: lm[12], color: '#c864ff' },
-        { key: 'ring',   lm: lm[16], color: '#ffaa00' },
-        { key: 'pinky',  lm: lm[20], color: '#ff6464' }
-    ];
+    // Vẽ glow tại mỗi tay
+    hands.forEach((lm, i) => {
+        const p = points[i];
+        const color = i === 0 ? '#00ffff' : '#ff64c8';
+        drawGlowSprite(p.x * W, p.y * H, color, true);
 
-    // === Phát hiện "chụm 3+ ngón" ===
-    // Đếm số ngón gần nhau (khoảng cách giữa các tip ngón < 30% bàn tay)
-    const pinchThreshold = handSize * 0.35;
-    let clusterCount = 0;
-    let clusterCenter = { x: 0, y: 0 };
-    const clustered = [];
-
-    // Duyệt mỗi ngón, đếm số ngón khác gần nó
-    for (let i = 0; i < fingerTips.length; i++) {
-        let neighbors = 1; // chính nó
-        let cx = fingerTips[i].lm.x;
-        let cy = fingerTips[i].lm.y;
-        for (let j = 0; j < fingerTips.length; j++) {
-            if (i === j) continue;
-            if (dist(fingerTips[i].lm, fingerTips[j].lm) < pinchThreshold) {
-                neighbors++;
-                cx += fingerTips[j].lm.x;
-                cy += fingerTips[j].lm.y;
-            }
-        }
-        if (neighbors >= CONFIG.minFingersForPinch) {
-            clustered.push({ idx: i, neighbors, center: { x: cx/neighbors, y: cy/neighbors } });
-        }
-    }
-
-    // Chọn cluster lớn nhất
-    if (clustered.length > 0) {
-        clustered.sort((a, b) => b.neighbors - a.neighbors);
-        clusterCount = clustered[0].neighbors;
-        clusterCenter = clustered[0].center;
-    }
-
-    const isPinching = clusterCount >= CONFIG.minFingersForPinch;
-
-    // === Vẽ hiệu ứng ===
-    // Tất cả đầu ngón tay
-    for (const f of fingerTips) {
-        const x = f.lm.x * W;
-        const y = f.lm.y * H;
-        const inCluster = clustered.some(c => {
-            const center = c.center;
-            return dist(f.lm, center) < pinchThreshold;
-        });
-        drawFingerGlow(x, y, f.color, inCluster);
-    }
-
-    // Glow lớn tại tâm cluster (đỉnh)
-    if (isPinching) {
-        const cx = clusterCenter.x * W;
-        const cy = clusterCenter.y * H;
-        drawPinchGlow(cx, cy, 50, '#ff64c8');
-        ctx.beginPath();
-        ctx.arc(cx, cy, 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.fill();
-
-        // Ring
-        ctx.beginPath();
-        ctx.arc(cx, cy, 20, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255,100,200,.6)';
+        // Vẽ dấu (+) tại tâm
+        ctx.strokeStyle = color;
         ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(p.x * W - 12, p.y * H);
+        ctx.lineTo(p.x * W + 12, p.y * H);
+        ctx.moveTo(p.x * W, p.y * H - 12);
+        ctx.lineTo(p.x * W, p.y * H + 12);
         ctx.stroke();
+    });
 
-        // === Thêm đỉnh mới ===
+    const isActive = hands.length >= 2;
+
+    if (isActive) {
+        // Điểm giữa 2 tay
+        const mid = {
+            x: (points[0].x + points[1].x) / 2,
+            y: (points[0].y + points[1].y) / 2
+        };
+
+        // Vẽ đường nối trực tiếp giữa 2 tay
+        ctx.strokeStyle = 'rgba(255,100,200,.4)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 6]);
+        ctx.beginPath();
+        ctx.moveTo(points[0].x * W, points[0].y * H);
+        ctx.lineTo(points[1].x * W, points[1].y * H);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Vẽ glow ở midpoint
+        drawGlowSprite(mid.x * W, mid.y * H, '#ff64c8', true);
+
+        // Thêm điểm vào path nếu đủ xa
         const lastV = state.vertices[state.vertices.length - 1];
-        if (!lastV || dist(lastV, clusterCenter) > CONFIG.shapeSampleDistance) {
+        if (!lastV || dist(lastV, mid) > CONFIG.shapeSampleDistance) {
             if (state.vertices.length < CONFIG.maxVertices) {
-                state.vertices.push({ x: clusterCenter.x, y: clusterCenter.y });
+                state.vertices.push({ x: mid.x, y: mid.y });
             }
         }
     } else {
-        // Vừa nhấc tay ra
-        if (state.wasPinching) {
-            const saved = saveCurrentShape();
-            if (saved) {
-                // Không reset ngay, để user thấy hình
-            }
+        // Không đủ 2 tay
+        if (state.wasActive) {
+            saveCurrentShape();
             state.vertices = [];
         }
     }
-    state.wasPinching = isPinching;
+    state.wasActive = isActive;
 
-    // === Vẽ hình đang vẽ ===
-    drawPath(state.vertices, '#00d4ff', 3);
+    // Vẽ path đang vẽ
+    drawPath(state.vertices, '#00d4ff', 3, 1);
 
-    // === Vẽ các hình đã lưu (mờ) ===
-    const colors = ['#00ffff','#c864ff','#ffaa00','#ff6464','#00ff88','#ff64c8','#64c8ff','#ffff64'];
-    state.shapes.forEach((s, i) => {
-        const isSelected = i === state.selectedShapeIndex;
-        const color = colors[i % colors.length];
-        drawPath(s.vertices, color, isSelected ? 3 : 1.5, isSelected ? 1 : 0.5);
-        if (isSelected && s.vertices.length > 0) {
-            // Highlight endpoints
-            const first = s.vertices[0];
-            const last = s.vertices[s.vertices.length-1];
-            ctx.beginPath();
-            ctx.arc(first.x * W, first.y * H, 8, 0, Math.PI * 2);
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(last.x * W, last.y * H, 8, 0, Math.PI * 2);
-            ctx.fillStyle = color;
-            ctx.fill();
-        }
-    });
+    // Vẽ shapes đã lưu (dùng cache nếu không dirty)
+    if (state.shapeLayerDirty) {
+        renderShapeLayer();
+        state.shapeLayerDirty = false;
+    }
+    blitShapeLayer();
 
     // Status
-    if (isPinching) {
+    if (isActive) {
         DOM.shapeStatusDot.classList.add('on');
-        DOM.shapeStatusText.textContent = `${clusterCount} ngón chụm — đang vẽ`;
-        DOM.shapeHint.textContent = `Đang vẽ · ${state.vertices.length} đỉnh`;
+        DOM.shapeStatusText.textContent = `2 tay — đang vẽ (${state.vertices.length})`;
+        DOM.shapeHint.textContent = `Đang vẽ · ${state.vertices.length} điểm`;
+    } else if (hands.length === 1) {
+        DOM.shapeStatusDot.classList.remove('on');
+        DOM.shapeStatusText.textContent = 'Cần 2 bàn tay';
+        DOM.shapeHint.textContent = 'Đưa tay còn lại vào khung hình';
     } else {
         DOM.shapeStatusDot.classList.remove('on');
-        DOM.shapeStatusText.textContent = 'Chờ 3+ ngón chụm lại';
-        DOM.shapeHint.textContent = 'Chụm 3+ ngón tay lại để bắt đầu';
+        DOM.shapeStatusText.textContent = 'Chờ 2 bàn tay';
+        DOM.shapeHint.textContent = 'Đưa 2 bàn tay vào khung hình';
     }
 
-    // Highlight row
-    for (const row of ['pinch','move','release']) {
-        const el = document.querySelector(`[data-shape="${row}"]`);
-        if (el) el.classList.remove('active');
-    }
-    if (isPinching) {
-        document.querySelector('[data-shape="pinch"]')?.classList.add('active');
+    // Highlight rows
+    ['two','move','release'].forEach(r => {
+        document.querySelector(`[data-shape="${r}"]`)?.classList.remove('active');
+    });
+    if (isActive) {
+        document.querySelector('[data-shape="two"]')?.classList.add('active');
         document.querySelector('[data-shape="move"]')?.classList.add('active');
     } else if (state.vertices.length > 0) {
         document.querySelector('[data-shape="release"]')?.classList.add('active');
@@ -1089,90 +1005,138 @@ function processShapeMode(lm, W, H) {
     scheduleUIUpdate();
 }
 
-function drawPath(vertices, color, lineWidth, alpha = 1) {
-    if (vertices.length < 2) {
-        if (vertices.length === 1) {
-            // Vẽ điểm
-            const p = vertices[0];
-            ctx.beginPath();
-            ctx.arc(p.x * DOM.canvas.width, p.y * DOM.canvas.height, 5, 0, Math.PI * 2);
-            ctx.fillStyle = color;
-            ctx.globalAlpha = alpha;
-            ctx.fill();
-            ctx.globalAlpha = 1;
-        }
-        return;
-    }
+// ============================================
+// SHAPE LAYER (offscreen canvas) - tránh vẽ lại nhiều lần
+// ============================================
+let shapeLayer = null;
 
+function renderShapeLayer() {
+    if (!shapeLayer) {
+        shapeLayer = document.createElement('canvas');
+    }
+    if (shapeLayer.width !== state.canvasW || shapeLayer.height !== state.canvasH) {
+        shapeLayer.width = state.canvasW;
+        shapeLayer.height = state.canvasH;
+    }
+    const sctx = shapeLayer.getContext('2d');
+    sctx.clearRect(0, 0, state.canvasW, state.canvasH);
+
+    if (state.shapes.length === 0) return;
+
+    const colors = ['#00ffff','#c864ff','#ffaa00','#ff6464','#00ff88','#ff64c8','#64c8ff','#ffff64'];
+    const W = state.canvasW, H = state.canvasH;
+
+    state.shapes.forEach((s, i) => {
+        const isSelected = i === state.selectedShapeIndex;
+        const color = colors[i % colors.length];
+        sctx.strokeStyle = color;
+        sctx.lineWidth = isSelected ? 3 : 1.5;
+        sctx.globalAlpha = isSelected ? 1 : 0.5;
+        sctx.lineCap = 'round';
+        sctx.lineJoin = 'round';
+        sctx.beginPath();
+        s.vertices.forEach((p, j) => {
+            const x = p.x * W;
+            const y = p.y * H;
+            if (j === 0) sctx.moveTo(x, y);
+            else sctx.lineTo(x, y);
+        });
+        if (s.vertices.length > 3 && dist(s.vertices[0], s.vertices[s.vertices.length-1]) < CONFIG.closeRatio) {
+            sctx.closePath();
+        }
+        sctx.stroke();
+    });
+    sctx.globalAlpha = 1;
+}
+
+function blitShapeLayer() {
+    if (!shapeLayer) return;
+    ctx.drawImage(shapeLayer, 0, 0);
+}
+
+function drawPath(vertices, color, lineWidth, alpha = 1) {
+    if (vertices.length < 2) return;
     ctx.globalAlpha = alpha;
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.beginPath();
-
-    const W = DOM.canvas.width;
-    const H = DOM.canvas.height;
-    vertices.forEach((p, i) => {
+    const W = state.canvasW;
+    const H = state.canvasH;
+    for (let i = 0; i < vertices.length; i++) {
+        const p = vertices[i];
         const x = p.x * W;
         const y = p.y * H;
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
-    });
-
-    // Đóng path nếu gần khép kín
-    if (vertices.length > 3 && dist(vertices[0], vertices[vertices.length-1]) < 0.12) {
+    }
+    if (vertices.length > 3 && dist(vertices[0], vertices[vertices.length-1]) < CONFIG.closeRatio) {
         ctx.closePath();
     }
-
     ctx.stroke();
     ctx.globalAlpha = 1;
 }
 
 // ============================================
-// MEDIAPIPE CALLBACK
+// MAIN RESULTS HANDLER
 // ============================================
+let lastProcessTime = 0;
+const frameInterval = 1000 / CONFIG.targetFPS;
+
 function onResults(results) {
     if (!state.cameraReady) {
         state.cameraReady = true;
         DOM.loading.classList.add('hide');
     }
 
-    // FPS
+    // FPS counter
     state.frameCount++;
     const now = performance.now();
-    if (now - state.lastFpsUpdate >= 1000) {
-        DOM.fpsNum.textContent = state.frameCount;
+    const elapsed = now - state.lastFpsUpdate;
+    if (elapsed >= 500) {
+        const fps = Math.round(state.frameCount * 1000 / elapsed);
+        DOM.fpsNum.textContent = fps;
+        DOM.fpsBox.classList.remove('good','mid','low');
+        if (fps >= 80) DOM.fpsBox.classList.add('good');
+        else if (fps >= 40) DOM.fpsBox.classList.add('mid');
+        else DOM.fpsBox.classList.add('low');
         state.frameCount = 0;
         state.lastFpsUpdate = now;
     }
 
-    const vw = DOM.video.videoWidth;
-    const vh = DOM.video.videoHeight;
-    if (DOM.canvas.width !== vw || DOM.canvas.height !== vh) {
+    // Canvas resize (chỉ khi cần)
+    const vw = DOM.video.videoWidth || 1280;
+    const vh = DOM.video.videoHeight || 720;
+    if (state.lastVideoW !== vw || state.lastVideoH !== vh) {
         DOM.canvas.width = vw;
         DOM.canvas.height = vh;
+        state.canvasW = vw;
+        state.canvasH = vh;
+        state.lastVideoW = vw;
+        state.lastVideoH = vh;
+        state.shapeLayerDirty = true;
+        // Invalidate glow cache khi size đổi? Không cần vì glow là sprite cố định
     }
 
-    ctx.drawImage(results.image, 0, 0, DOM.canvas.width, DOM.canvas.height);
+    // Render frame
+    ctx.drawImage(results.image, 0, 0, state.canvasW, state.canvasH);
 
     const hands = results.multiHandLandmarks;
-    if (hands && hands.length > 0) {
-        const lm = hands[0];
-        const W = DOM.canvas.width;
-        const H = DOM.canvas.height;
 
-        // Vẽ khung xương
-        drawConnectors(ctx, lm, HAND_CONNECTIONS, { color: 'rgba(255,255,255,.25)', lineWidth: 1.5 });
-        drawLandmarks(ctx, lm, { color: 'rgba(255,255,255,.5)', lineWidth: 1, radius: 1.5 });
+    if (hands && hands.length > 0) {
+        // Vẽ khung xương cho mỗi tay
+        for (const lm of hands) {
+            drawConnectors(ctx, lm, HAND_CONNECTIONS, { color: 'rgba(255,255,255,.25)', lineWidth: 1.5 });
+            drawLandmarks(ctx, lm, { color: 'rgba(255,255,255,.5)', lineWidth: 1, radius: 1.5 });
+        }
 
         if (state.mode === 'hand') {
-            processHandMode(lm, W, H);
+            processHandMode(hands[0], state.canvasW, state.canvasH);
         } else {
-            processShapeMode(lm, W, H);
+            processShapeMode(hands, state.canvasW, state.canvasH);
         }
     } else {
-        // Không có tay
         if (state.mode === 'hand') {
             DOM.statusDot.classList.remove('on');
             DOM.statusText.textContent = 'Đang chờ tay';
@@ -1183,13 +1147,21 @@ function onResults(results) {
             }
             highlightRow(null);
         } else {
-            DOM.shapeStatusDot.classList.remove('on');
-            DOM.shapeStatusText.textContent = 'Đang chờ tay';
-            if (state.wasPinching) {
+            if (state.wasActive) {
                 saveCurrentShape();
                 state.vertices = [];
-                state.wasPinching = false;
+                state.wasActive = false;
+                state.shapeLayerDirty = true;
+                scheduleUIUpdate();
             }
+            DOM.shapeStatusDot.classList.remove('on');
+            DOM.shapeStatusText.textContent = 'Chờ 2 bàn tay';
+            // Vẫn vẽ shapes đã lưu
+            if (state.shapeLayerDirty) {
+                renderShapeLayer();
+                state.shapeLayerDirty = false;
+            }
+            blitShapeLayer();
         }
     }
 }
@@ -1200,17 +1172,15 @@ function onResults(results) {
 function switchMode(mode) {
     if (state.mode === mode) return;
     state.mode = mode;
-
     DOM.app.classList.toggle('mode-hand', mode === 'hand');
     DOM.app.classList.toggle('mode-shape', mode === 'shape');
-
     DOM.btnModeHand.classList.toggle('active', mode === 'hand');
     DOM.btnModeShape.classList.toggle('active', mode === 'shape');
 
-    // Reset trạng thái khi đổi mode
     if (mode === 'hand') {
         state.vertices = [];
-        state.wasPinching = false;
+        state.wasActive = false;
+        state.shapeLayerDirty = true;
     } else {
         state.isTouching = false;
         if (state.holdTimer) {
@@ -1218,9 +1188,8 @@ function switchMode(mode) {
             state.holdTimer = null;
         }
     }
-
     scheduleUIUpdate();
-    showToast(mode === 'hand' ? 'Chế độ Morse' : 'Chế độ Vẽ hình');
+    showToast(mode === 'hand' ? 'Chế độ Morse' : 'Chế độ Vẽ hình 2 tay');
 }
 
 DOM.btnModeHand.addEventListener('click', () => switchMode('hand'));
@@ -1240,11 +1209,8 @@ DOM.btnShare.addEventListener('click', async () => {
 function copyClipboard() {
     const text = state.message;
     if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(text)
-            .then(() => showToast('Đã sao chép'))
-            .catch(fallbackCopy);
+        navigator.clipboard.writeText(text).then(() => showToast('Đã sao chép')).catch(fallbackCopy);
     } else fallbackCopy();
-
     function fallbackCopy() {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -1278,7 +1244,6 @@ DOM.btnExport.addEventListener('click', exportShapes);
 // ============================================
 document.addEventListener('keydown', e => {
     if (e.target.matches('input, textarea')) return;
-
     if (state.mode === 'hand') {
         switch (e.key) {
             case '.': handleHandAction(ACTIONS.DOT); break;
@@ -1287,49 +1252,51 @@ document.addEventListener('keydown', e => {
             case 'Backspace': e.preventDefault(); handleHandAction(ACTIONS.DELETE); break;
         }
     } else {
-        switch (e.key) {
-            case 'z': if (e.ctrlKey || e.metaKey) { e.preventDefault(); undoShape(); } break;
-            case 'Escape': if (state.vertices.length > 0) { state.vertices = []; scheduleUIUpdate(); } break;
-        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undoShape(); }
+        if (e.key === 'Escape') { state.vertices = []; scheduleUIUpdate(); }
     }
 });
 
 // ============================================
-// CAMERA
+// CAMERA INIT - TỐI ƯU
 // ============================================
+let handsInstance = null;
+let sending = false;
+
 async function initCamera() {
     if (!navigator.mediaDevices?.getUserMedia) {
-        showError('Trình duyệt không hỗ trợ camera.'); return;
+        showError('Trình duyệt không hỗ trợ camera.');
+        return;
     }
     const isSecure = window.isSecureContext ||
                      location.hostname === 'localhost' ||
                      location.hostname === '127.0.0.1' ||
                      location.protocol === 'file:';
     if (!isSecure) {
-        showError('Camera yêu cầu HTTPS. Vui lòng mở qua https:// hoặc localhost.'); return;
+        showError('Camera yêu cầu HTTPS. Mở qua https:// hoặc localhost.');
+        return;
     }
 
-    DOM.loadingText.innerHTML = '<strong>Đang yêu cầu quyền camera...</strong>Nhấn "Cho phép" khi trình duyệt hỏi';
+    DOM.loadingText.innerHTML = '<strong>Đang yêu cầu quyền camera...</strong>Nhấn "Cho phép"';
 
     let stream;
     try {
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: 'user',
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-                frameRate: { ideal: 30, max: 60 }
+                width: { ideal: CONFIG.mediapipeInputWidth },
+                height: { ideal: CONFIG.mediapipeInputHeight },
+                frameRate: { ideal: 60, max: 60 }
             },
             audio: false
         });
     } catch (err) {
         console.error('[Camera]', err);
         const msg = {
-            NotAllowedError: 'Bạn đã từ chối quyền camera. Vào cài đặt trình duyệt để cấp lại.',
+            NotAllowedError: 'Bạn đã từ chối quyền camera.',
             NotFoundError: 'Không tìm thấy camera.',
             NotReadableError: 'Camera đang bị ứng dụng khác chiếm dụng.',
-            OverconstrainedError: 'Camera không hỗ trợ độ phân giải yêu cầu.',
-            SecurityError: 'Bị chặn do chính sách bảo mật. Vui lòng dùng HTTPS.'
+            OverconstrainedError: 'Camera không hỗ trợ độ phân giải yêu cầu.'
         }[err.name] || 'Không thể truy cập camera.';
         showError(msg);
         return;
@@ -1344,27 +1311,31 @@ async function initCamera() {
 
     DOM.loadingText.innerHTML = '<strong>Đang tải mô hình AI...</strong>Có thể mất vài giây';
 
-    const hands = new Hands({
+    handsInstance = new Hands({
         locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${f}`
     });
 
-    hands.setOptions({
-        maxNumHands: 1,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.65,
-        minTrackingConfidence: 0.55,
+    handsInstance.setOptions({
+        maxNumHands: 2,                              // HỖ TRỢ 2 TAY cho mode 2
+        modelComplexity: CONFIG.modelComplexity,
+        minDetectionConfidence: CONFIG.minDetectionConfidence,
+        minTrackingConfidence: CONFIG.minTrackingConfidence,
         selfieMode: false
     });
 
-    hands.onResults(onResults);
+    handsInstance.onResults(onResults);
 
-    let sending = false;
+    // Loop riêng cho MediaPipe send - dùng rAF nhưng có backpressure
     const loop = async () => {
         if (DOM.video.readyState >= 2 && !sending) {
             sending = true;
-            try { await hands.send({ image: DOM.video }); }
-            catch (e) { console.error('[Send]', e); }
-            finally { sending = false; }
+            try {
+                await handsInstance.send({ image: DOM.video });
+            } catch (e) {
+                // im lặng, bỏ qua frame lỗi
+            } finally {
+                sending = false;
+            }
         }
         requestAnimationFrame(loop);
     };
@@ -1386,7 +1357,6 @@ document.addEventListener('visibilitychange', () => {
         if (state.holdTimer) clearTimeout(state.holdTimer);
         state.holdTimer = null;
         state.isTouching = false;
-        state.wasPinching = false;
     }
 });
 
